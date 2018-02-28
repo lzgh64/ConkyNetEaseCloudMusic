@@ -1,0 +1,89 @@
+# -- Conky settings -- #
+background no
+update_interval 1
+ 
+cpu_avg_samples 2
+net_avg_samples 2
+ 
+override_utf8_locale yes
+ 
+double_buffer yes
+no_buffers yes
+ 
+text_buffer_size 2048
+imlib_cache_size 0
+ 
+# -- Window specifications -- #
+ 
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_hints sticky,skip_taskbar,skip_pager,below
+ 
+border_inner_margin 0
+border_outer_margin 0
+ 
+minimum_size 900 0
+maximum_width 900
+ 
+alignment top_left
+gap_x 60
+gap_y 70
+ 
+# -- Graphics settings -- #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+ 
+# -- Text settings -- #
+use_xft yes
+xftfont Santana:size=18
+xftalpha 0.8
+ 
+uppercase no
+ 
+default_color FFFFFF
+ 
+# -- Lua Load -- #
+lua_load ./clock_rings.lua
+lua_draw_hook_pre clock_rings
+ 
+own_window_argb_value 0
+own_window_argb_visual yes
+own_window_colour 000000
+TEXT
+# -- Root & Home Usage -- #
+   ${font Santana:size=12}/  ${fs_used /}/${fs_size /}                /home  ${fs_used /home}/${fs_size /home}$font
+# -- Battery -- #
+${voffset 26}${offset 270}${font Santana:size=12}Battery    ${battery}
+${offset  280}${font Santana:size=10}WiFi IPv4      ${addr wlp2s0}
+# -- Center Time & Line -- #
+${voffset 40}${offset 110}${font Santana:size=24}${time %H:%M}${voffset -9}${font Santana:size=12}${time %p}${font}
+${voffset -29}${offset 223}${hr 2}
+# -- CPU Graph & Date Time -- #
+${voffset -70}${offset 278}${cpugraph 50,285 d5dcde ffffff}${voffset -18} 
+${voffset 8}${goto 284}${font Santana:size=16}${time %A, %d %B %Y}
+# -- NetEase Cloud Music -- #
+${voffset -58}${alignr 40}${font Noto Sans Mono CJK SC:size=12}${texeci 10 dbus-send --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A1 'xesam:title' | grep -v 'xesam:title' | cut -d'"' -f2}
+${voffset 6}${offset 575}${font Noto Sans Mono CJK SC:size=12}${texeci 10 dbus-send --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A1 'xesam:album' | grep -v 'xesam:album' | cut -d'"' -f2}${alignr 5}${texeci 10 dbus-send --print-reply --dest=org.mpris.MediaPlayer2.netease-cloud-music /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A2 'xesam:artist' | grep 'string' | grep -v 'xesam:artist' | cut -d'"' -f2}
+# -- CPU -- #
+${voffset 21}${offset 265}${font Santana:size 12}CPU${goto 390}$cpu %${font Santana:size=10}
+${offset 265}Load Average${goto 390}${loadavg 1}
+${offset 265}Processes${goto 390}${running_processes}/${processes}
+
+${offset 265}${top name 1}${goto 384}${top cpu 1}%
+${offset 265}${top name 2}${goto 384}${top cpu 2}%
+${offset 265}${top name 3}${goto 384}${top cpu 3}%
+# -- RAM -- #
+${voffset -25}${offset 30}${font Santana:size 12}RAM${goto 160}$memperc %${font Santana:size=10}
+${offset 30}Amount        $mem/$memmax
+
+${offset 30}${top_mem name 1}${goto 154}${top_mem cpu 1}%
+${offset 30}${top_mem name 2}${goto 154}${top_mem cpu 2}%
+${offset 30}${top_mem name 3}${goto 154}${top_mem cpu 3}%
+# -- background image -- #
+${image ./lines.png -p 1,20}
+${image ./netease-cloud-music.png -p 863,115}
+
+
