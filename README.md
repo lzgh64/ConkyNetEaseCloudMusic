@@ -4,6 +4,8 @@ Conky Script by [Dawn.L](https://www.ohmyerr.top/)
 
 This script is based on [Dragonias's conky script](https://www.deviantart.com/art/Conky-Conky-Conky-174343321)
 
+![preview](./preview.jpg)
+
 ### What's modified?
 
 - merge four script files into one
